@@ -1,5 +1,6 @@
 package com.personal.todo_app.exception;
 
+import com.personal.todo_app.exception.auth.InvalidCredentialsException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -65,6 +66,20 @@ public class GlobalExceptionHandler {
                                 .status(HttpStatus.CONFLICT.value())
                                 .message(message)
                                 .code(code)
+                                .path(httpServletRequest.getRequestURI())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ResponseEntity<ErrorResponse> handleInvalidCredentials(InvalidCredentialsException exception, HttpServletRequest httpServletRequest) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ErrorResponse.builder()
+                                .timestamp(Instant.now())
+                                .status(HttpStatus.BAD_REQUEST.value())
+                                .message(exception.getMessage())
+                                .code("BAD_REQUEST")
                                 .path(httpServletRequest.getRequestURI())
                                 .build()
                 );

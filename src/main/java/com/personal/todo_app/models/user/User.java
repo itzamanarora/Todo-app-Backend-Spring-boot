@@ -1,5 +1,6 @@
 package com.personal.todo_app.models.user;
 
+import com.personal.todo_app.models.task.Task;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -7,6 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -37,6 +39,19 @@ public class User {
 
     @Column(name = "password_hash", nullable = false, length = 255)
     private String password;
+
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
+    @Column(name="role", nullable = false)
+    private ROLES role = ROLES.USER;
+
+    @OneToMany(
+            mappedBy = "user",
+            fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<Task> tasksId;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

@@ -1,5 +1,6 @@
 package com.personal.todo_app.dto.user;
 
+import com.personal.todo_app.models.user.ROLES;
 import lombok.*;
 
 import java.time.Instant;
@@ -14,6 +15,7 @@ public class UserResponseDTO {
     private UUID userId;
     private String username;
     private String email;
+    private ROLES role;
     private Instant createdAt;
     private Instant updatedAt;
 }

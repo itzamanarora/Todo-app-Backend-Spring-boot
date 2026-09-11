@@ -8,5 +8,5 @@ import com.personal.todo_app.dto.user.signup.SignUpResponseDTO;
 public interface AuthService {
     SignUpResponseDTO signUp(SignUpRequestDTO signUpRequestDTO);
 
-    String signIn(SignInRequestDTO signInRequestDTO);
+    SignInResponseDTO signIn(SignInRequestDTO signInRequestDTO);
 }

@@ -1,9 +1,11 @@
 package com.personal.todo_app.controller.auth;
 
 import com.personal.todo_app.dto.user.signin.SignInRequestDTO;
+import com.personal.todo_app.dto.user.signin.SignInResponseDTO;
 import com.personal.todo_app.dto.user.signup.SignUpRequestDTO;
 import com.personal.todo_app.dto.user.signup.SignUpResponseDTO;
 import com.personal.todo_app.service.auth.AuthService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/auth")
+@Tag(name="Auth Controller")
 public class AuthController {
     private final AuthService authService;
 
@@ -29,7 +32,7 @@ public class AuthController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<String> signIn(@Valid @RequestBody SignInRequestDTO signInRequestDTO) {
+    public ResponseEntity<SignInResponseDTO> signIn(@Valid @RequestBody SignInRequestDTO signInRequestDTO) {
         return ResponseEntity.ok(authService.signIn(signInRequestDTO));
     }
 }

@@ -1,6 +1,7 @@
 package com.personal.todo_app.exception;
 
 import com.personal.todo_app.exception.auth.InvalidCredentialsException;
+import com.personal.todo_app.exception.task.TaskNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -80,6 +81,20 @@ public class GlobalExceptionHandler {
                                 .status(HttpStatus.BAD_REQUEST.value())
                                 .message(exception.getMessage())
                                 .code("BAD_REQUEST")
+                                .path(httpServletRequest.getRequestURI())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler(TaskNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleTaskNotFound(TaskNotFoundException taskNotFoundException, HttpServletRequest httpServletRequest) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(
+                        ErrorResponse.builder()
+                                .timestamp(Instant.now())
+                                .status(HttpStatus.NOT_FOUND.value())
+                                .message(taskNotFoundException.getMessage())
+                                .code("NOT_FOUND")
                                 .path(httpServletRequest.getRequestURI())
                                 .build()
                 );

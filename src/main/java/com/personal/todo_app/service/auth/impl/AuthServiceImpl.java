@@ -9,6 +9,7 @@ import com.personal.todo_app.mapper.user.SignUpDTOMapper;
 import com.personal.todo_app.models.user.User;
 import com.personal.todo_app.repository.user.UserRepository;
 import com.personal.todo_app.service.auth.AuthService;
+import com.personal.todo_app.service.auth.JwtService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,10 +22,12 @@ public class AuthServiceImpl implements AuthService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
-    public AuthServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public AuthServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtService jwtService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
     }
 
     @Override
@@ -45,7 +48,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public String signIn(SignInRequestDTO signInRequestDTO) {
+    public SignInResponseDTO signIn(SignInRequestDTO signInRequestDTO) {
         User user = userRepository.findByEmail(signInRequestDTO.getEmail())
                 .orElseThrow(InvalidCredentialsException::new);
 
@@ -53,7 +56,14 @@ public class AuthServiceImpl implements AuthService {
 
         if (!passwordHash) throw new InvalidCredentialsException();
 
+        String accessToken = jwtService.generateAccessToken(user);
+
         log.info("User Logged in: {}", user.getEmail());
-        return "Logged In";
+
+        return SignInResponseDTO.builder()
+                .accessToken(accessToken)
+                .refreshToken("hello")
+                .tokenType("Bearer")
+                .build();
     }
 }

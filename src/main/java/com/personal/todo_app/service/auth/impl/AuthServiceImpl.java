@@ -54,7 +54,7 @@ public class AuthServiceImpl implements AuthService {
 
         boolean passwordHash = passwordEncoder.matches(signInRequestDTO.getPassword(), user.getPassword());
 
-        if (!passwordHash) throw new InvalidCredentialsException();
+        if (!passwordHash) throw new InvalidCredentialsException("Incorrect Password");
 
         String accessToken = jwtService.generateAccessToken(user);
 

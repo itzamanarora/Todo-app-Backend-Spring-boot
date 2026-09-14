@@ -65,7 +65,7 @@ public class TaskServiceImpl implements TaskService {
         if (taskUpdateRequestDTO.getDisplayOrder() != null) task.setDisplayOrder(taskUpdateRequestDTO.getDisplayOrder());
         if (taskUpdateRequestDTO.getStatus() != null) {
             task.setStatus(taskUpdateRequestDTO.getStatus());
-            if(taskUpdateRequestDTO.getStatus() == STATUSES.COMPLETE) taskUpdateRequestDTO.setCompletedAt(Instant.now());
+            if(taskUpdateRequestDTO.getStatus() == STATUSES.COMPLETE) task.setCompletedAt(Instant.now());
             else task.setCompletedAt(null);
         }
 

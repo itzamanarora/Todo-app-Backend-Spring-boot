@@ -64,6 +64,7 @@ public class AuthServiceImpl implements AuthService {
                 .accessToken(accessToken)
                 .refreshToken("hello")
                 .tokenType("Bearer")
+                .role(String.valueOf(user.getRole()))
                 .build();
     }
 }

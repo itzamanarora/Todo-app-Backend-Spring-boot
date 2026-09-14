@@ -35,7 +35,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<TaskResponseDTO> getAllTask(UUID userId) {
         log.info("Getting All task of user: {}", userId);
-        List<Task> task = taskRepository.findAllByUser_UserId(userId);
+        List<Task> task = taskRepository.findAllByUser_UserIdAndDeletedFalse(userId);
         return TaskDTOMapper.mapToTaskList(task);
     }
 

@@ -21,7 +21,8 @@ public class CorsConfig {
                 "http://localhost:5173",
                 "https://itzamanarora.github.io",
                 "http://192.168.1.49:5173",
-                "https://to-do-app-frontend-react.vercel.app/"
+                "http://localhost",
+                "https://to-do-app-frontend-react.vercel.app"
         ));
 
         corsConfiguration.setAllowedMethods(List.of(

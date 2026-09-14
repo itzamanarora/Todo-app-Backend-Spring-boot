@@ -20,7 +20,6 @@ public class TaskResponseDTO {
     private PRIORITIES priority;
     private int displayOrder;
     private Instant dueDate;
+    private Instant completedAt;
     private Instant createdAt;
-    private Instant updatedAt;
-
 }

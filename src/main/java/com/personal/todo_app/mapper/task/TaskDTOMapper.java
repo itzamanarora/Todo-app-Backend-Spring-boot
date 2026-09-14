@@ -27,7 +27,7 @@ public class TaskDTOMapper {
                 .displayOrder(task.getDisplayOrder())
                 .dueDate(task.getDueDate())
                 .createdAt(task.getCreatedAt())
-                .updatedAt(task.getUpdatedAt())
+                .completedAt(task.getCompletedAt())
                 .build();
     }
 

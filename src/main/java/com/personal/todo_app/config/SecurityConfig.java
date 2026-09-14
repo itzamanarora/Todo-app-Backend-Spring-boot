@@ -28,7 +28,7 @@ public class SecurityConfig {
                 .cors(cors -> {})
                 .authorizeHttpRequests(request -> request.requestMatchers(
                                 HttpMethod.POST, "/api/v1/auth/signup", "/api/v1/auth/signin").permitAll()
-                        .requestMatchers(HttpMethod.GET,  "/swagger-ui/**", "/v3/api-docs/**","/swagger-ui.html").permitAll()
+                        .requestMatchers(HttpMethod.GET,  "/swagger-ui/**", "/v3/api-docs/**","/swagger-ui.html", "/actuator/**").permitAll()
                         .requestMatchers("/api/v1/user/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
                 ).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
